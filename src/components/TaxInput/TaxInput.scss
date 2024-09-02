@@ -1,0 +1,29 @@
+.form-container {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+	background-color: rgba(59, 59, 59, 0.13);
+	border-radius: 5px;
+	width: 600px;
+	padding: 10px;
+	margin: 0px auto;
+
+	&__wrapper {
+		display: flex;
+		justify-content: space-between;
+
+		&__block {
+			display: flex;
+			gap: 5px;
+			flex-direction: column;
+
+			&__input {
+				width: 230px;
+			}
+		}
+	}
+
+	&__label {
+		margin-top: 10px;
+	}
+}
