@@ -12,7 +12,7 @@ export default class TaxInput extends React.Component<{}, TaxInputState> {
   constructor(props: {}) {
     super(props);
     this.state = {
-      ryczaltRate: 2,
+      ryczaltRate: 0.02,
 			costs: 0,
 			income: 0,
     };
@@ -37,7 +37,7 @@ export default class TaxInput extends React.Component<{}, TaxInputState> {
           <div className="form-container__wrapper">
             <div className="form-container__wrapper__block">
               <label className="form-container__wrapper__block__label" htmlFor="income">Przychody za rok</label>
-              <input onChange={this.handleIncomeChange} className="form-container__wrapper__block__input" type="number" id="income" placeholder="Wpisz tutaj swój dochód" />
+              <input onChange={this.handleIncomeChange} className="form-container__wrapper__block__input" type="number" id="income" placeholder="Wpisz tutaj swój dochód" min="0" />
             </div>
             <div className="form-container__wrapper__block">
               <label className="form-container__wrapper__block__label" htmlFor="costs">Koszty za rok</label>

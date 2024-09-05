@@ -14,28 +14,43 @@ export default class CalculateComponent extends React.Component<CalculateCompone
 		}
 	}
 
+	validationIncorrect = (): React.ReactNode => {
+		const { income, costs }: CalculateComponentProps = this.props;
+
+		if(income < 0 || costs) {
+			return(
+				<>
+					Your income or costs is incorrect
+				</>
+			);
+		}
+	}
+
 	calcBestOption = (): void => {
 		const { ryczaltRate, costs, income }: CalculateComponentProps = this.props;
 
-		const countOfRyczaltTax = calculateRyczaltTax(income, ryczaltRate);
-		const countOfFlatTax = calculateFlatTax(income, costs);
-		const countOfScaleTax = calculateScaleTax(income, costs);
+		if(income >= 0 && costs >= 0) {
+			const countOfRyczaltTax = calculateRyczaltTax(income, ryczaltRate);
+			const countOfFlatTax = calculateFlatTax(income, costs);
+			const countOfScaleTax = calculateScaleTax(income, costs);
 
-		const bestOption = Math.min(countOfRyczaltTax, countOfFlatTax, countOfScaleTax);
-		console.log(bestOption);
+			const bestOption = Math.min(countOfRyczaltTax, countOfFlatTax, countOfScaleTax);
+			console.log(bestOption);
 
-		console.log(countOfRyczaltTax);
-		console.log(countOfFlatTax);
-		console.log(countOfScaleTax);
+			console.log(countOfRyczaltTax);
+			console.log(countOfFlatTax);
+			console.log(countOfScaleTax);
 
-		this.setState({
-			countOfRyczaltTax,
-			countOfFlatTax,
-			countOfScaleTax,
-			bestOption,
-			checkBestOption: true,
-		})
-
+			this.setState({
+				countOfRyczaltTax,
+				countOfFlatTax,
+				countOfScaleTax,
+				bestOption,
+				checkBestOption: true,
+			})
+		} else {
+			this.validationIncorrect();
+		}
 	} 
 
 	render(): React.ReactNode {
@@ -48,6 +63,7 @@ export default class CalculateComponent extends React.Component<CalculateCompone
 								{this.state.bestOption}
 						</div>
 					)}
+					{this.validationIncorrect()}
 			</>
 			
 		);

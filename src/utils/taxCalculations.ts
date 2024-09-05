@@ -21,10 +21,13 @@ export const calculateFlatTax = (income: number, costs: number): number => {
 	let flatTax = flatIncome * 0.19;
 	let flatHealthContribution = Math.max(flatIncome * 0.049, 381.78);
 
+	if(flatIncome < 0) {
+		flatTax = 0;	
+	}
 	if(flatIncome > 1000000) {
 		flatTax += (income - 1000000) * 0.04;
 	}
-		
+
 	return flatTax + flatHealthContribution;
 }
 
@@ -33,7 +36,10 @@ export const calculateScaleTax = (income: number, costs: number): number => {
 	let scaleIncome = income - costs;
 	let scaleHealthContribution = Math.max(scaleIncome * 0.09, 381.78);
 
-	if(scaleIncome <= 120000) {
+	if(scaleIncome < 30000) {
+		scaleTax = 0;
+	}
+	if(scaleIncome > 30000 && scaleIncome <= 120000) {
 		scaleTax = (scaleIncome - 30000) * 0.12;
 	}
 	if(scaleIncome > 120000 && income <= 1000000) {
