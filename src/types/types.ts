@@ -9,5 +9,6 @@ export interface CalculateComponentState {
 	countOfFlatTax: number;
 	countOfScaleTax: number;
 	bestOption: number;
+	bestOptionName: string;
 	checkBestOption: boolean;
 }

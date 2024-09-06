@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react'
-import CalculateComponent from '../CalculateComponent'
+import CalculateComponent from '../CalculateComponent/CalculateComponent'
 import './TaxInput.scss'
 
 interface TaxInputState {
@@ -59,6 +59,7 @@ export default class TaxInput extends React.Component<{}, TaxInputState> {
             <option value="0.17">17%</option>
           </select>
         </div>
+
         <CalculateComponent ryczaltRate={this.state.ryczaltRate} income={this.state.income} costs={this.state.costs} />
       </>
     );

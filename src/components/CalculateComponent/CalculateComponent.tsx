@@ -1,6 +1,8 @@
 import React from 'react'
-import { CalculateComponentProps, CalculateComponentState } from '../types/types'
-import { calculateFlatTax, calculateRyczaltTax, calculateScaleTax } from '../utils/taxCalculations'
+import { CalculateComponentProps, CalculateComponentState } from '../../types/types'
+import { calculateFlatTax, calculateRyczaltTax, calculateScaleTax } from '../../utils/taxCalculations'
+import './CalculateComponent.scss'
+
 
 export default class CalculateComponent extends React.Component<CalculateComponentProps, CalculateComponentState> {
 	constructor(props: CalculateComponentProps) {
@@ -10,6 +12,7 @@ export default class CalculateComponent extends React.Component<CalculateCompone
 			countOfFlatTax: 0,
 			countOfScaleTax: 0,
 			bestOption: 0,
+			bestOptionName: '',
 			checkBestOption: false,
 		}
 	}
@@ -17,7 +20,7 @@ export default class CalculateComponent extends React.Component<CalculateCompone
 	validationIncorrect = (): React.ReactNode => {
 		const { income, costs }: CalculateComponentProps = this.props;
 
-		if(income < 0 || costs) {
+		if(income < 0 || costs < 0) {
 			return(
 				<>
 					Your income or costs is incorrect
@@ -29,23 +32,35 @@ export default class CalculateComponent extends React.Component<CalculateCompone
 	calcBestOption = (): void => {
 		const { ryczaltRate, costs, income }: CalculateComponentProps = this.props;
 
-		if(income >= 0 && costs >= 0) {
+		if(income > 0 && costs >= 0) {
 			const countOfRyczaltTax = calculateRyczaltTax(income, ryczaltRate);
 			const countOfFlatTax = calculateFlatTax(income, costs);
 			const countOfScaleTax = calculateScaleTax(income, costs);
 
-			const bestOption = Math.min(countOfRyczaltTax, countOfFlatTax, countOfScaleTax);
-			console.log(bestOption);
+			console.log(countOfRyczaltTax + 'ryczalt');
+			console.log(countOfFlatTax + 'Liniowka');
+			console.log(countOfScaleTax + 'Skala');
 
-			console.log(countOfRyczaltTax);
-			console.log(countOfFlatTax);
-			console.log(countOfScaleTax);
+			let bestOption = countOfRyczaltTax;
+			let bestOptionName = 'Ryczalt';
+
+			
+			if (countOfFlatTax < bestOption) {
+				bestOption = countOfFlatTax;
+				bestOptionName = 'Flat Tax';
+			}
+
+			if (countOfScaleTax < bestOption) {
+				bestOption = countOfScaleTax;
+				bestOptionName = 'Scale Tax';
+			}
 
 			this.setState({
 				countOfRyczaltTax,
 				countOfFlatTax,
 				countOfScaleTax,
 				bestOption,
+				bestOptionName,
 				checkBestOption: true,
 			})
 		} else {
@@ -56,15 +71,17 @@ export default class CalculateComponent extends React.Component<CalculateCompone
 	render(): React.ReactNode {
 
 		return(
-			<>
+			<div>
+			<div className='result-container'>
 				<button type="submit" onClick={this.calcBestOption}>Sprawdz</button>
 					{this.state.checkBestOption && (
-						<div className="container">
-								{this.state.bestOption}
+						<div className="result-container__wrapper">
+								Your best option is: {this.state.bestOptionName} with a tax of {this.state.bestOption} zł.
 						</div>
 					)}
 					{this.validationIncorrect()}
-			</>
+			</div>
+			</div>
 			
 		);
 	}
