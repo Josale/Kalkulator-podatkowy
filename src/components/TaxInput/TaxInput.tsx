@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React from 'react'
 import CalculateComponent from '../CalculateComponent/CalculateComponent'
 import './TaxInput.scss'
 
@@ -30,9 +30,9 @@ export default class TaxInput extends React.Component<{}, TaxInputState> {
 		this.setState({ income: Number(event.target.value) })
 	}
 
-  render(): ReactNode {
+  render(): React.ReactNode {
     return (
-      <>
+      <div>
         <div className="form-container">
           <div className="form-container__wrapper">
             <div className="form-container__wrapper__block">
@@ -58,10 +58,9 @@ export default class TaxInput extends React.Component<{}, TaxInputState> {
             <option value="0.15">15%</option>
             <option value="0.17">17%</option>
           </select>
+          <CalculateComponent ryczaltRate={this.state.ryczaltRate} income={this.state.income} costs={this.state.costs} />
         </div>
-
-        <CalculateComponent ryczaltRate={this.state.ryczaltRate} income={this.state.income} costs={this.state.costs} />
-      </>
+      </div>
     );
   }
 }

@@ -3,7 +3,6 @@ import { CalculateComponentProps, CalculateComponentState } from '../../types/ty
 import { calculateFlatTax, calculateRyczaltTax, calculateScaleTax } from '../../utils/taxCalculations'
 import './CalculateComponent.scss'
 
-
 export default class CalculateComponent extends React.Component<CalculateComponentProps, CalculateComponentState> {
 	constructor(props: CalculateComponentProps) {
 		super(props);
@@ -17,42 +16,25 @@ export default class CalculateComponent extends React.Component<CalculateCompone
 		}
 	}
 
-	validationIncorrect = (): React.ReactNode => {
-		const { income, costs }: CalculateComponentProps = this.props;
-
-		if(income < 0 || costs < 0) {
-			return(
-				<>
-					Your income or costs is incorrect
-				</>
-			);
-		}
-	}
-
 	calcBestOption = (): void => {
 		const { ryczaltRate, costs, income }: CalculateComponentProps = this.props;
 
-		if(income > 0 && costs >= 0) {
-			const countOfRyczaltTax = calculateRyczaltTax(income, ryczaltRate);
-			const countOfFlatTax = calculateFlatTax(income, costs);
-			const countOfScaleTax = calculateScaleTax(income, costs);
+		if(income >= 0 && costs >= 0) {
+			const countOfRyczaltTax: number = calculateRyczaltTax(income, ryczaltRate);
+			const countOfFlatTax: number = calculateFlatTax(income, costs);
+			const countOfScaleTax: number = calculateScaleTax(income, costs);
 
-			console.log(countOfRyczaltTax + 'ryczalt');
-			console.log(countOfFlatTax + 'Liniowka');
-			console.log(countOfScaleTax + 'Skala');
+			let bestOption: number = Math.round(countOfRyczaltTax);
+			let bestOptionName: string = 'Ryczalt';
 
-			let bestOption = countOfRyczaltTax;
-			let bestOptionName = 'Ryczalt';
-
-			
 			if (countOfFlatTax < bestOption) {
-				bestOption = countOfFlatTax;
-				bestOptionName = 'Flat Tax';
+				bestOption = Math.round(countOfFlatTax);
+				bestOptionName = 'podatek liniowy';
 			}
 
 			if (countOfScaleTax < bestOption) {
-				bestOption = countOfScaleTax;
-				bestOptionName = 'Scale Tax';
+				bestOption = Math.round(countOfScaleTax);
+				bestOptionName = 'podatek skalowy';
 			}
 
 			this.setState({
@@ -63,8 +45,6 @@ export default class CalculateComponent extends React.Component<CalculateCompone
 				bestOptionName,
 				checkBestOption: true,
 			})
-		} else {
-			this.validationIncorrect();
 		}
 	} 
 
@@ -72,17 +52,15 @@ export default class CalculateComponent extends React.Component<CalculateCompone
 
 		return(
 			<div>
-			<div className='result-container'>
-				<button type="submit" onClick={this.calcBestOption}>Sprawdz</button>
-					{this.state.checkBestOption && (
-						<div className="result-container__wrapper">
-								Your best option is: {this.state.bestOptionName} with a tax of {this.state.bestOption} zł.
-						</div>
-					)}
-					{this.validationIncorrect()}
+				<div className='form-container__button'>
+					<button className='form-container__button__item' type="submit" onClick={this.calcBestOption}>Sprawdz</button>
+						{this.state.checkBestOption && (
+							<div className="form-container__button__wrapper">
+									Najlepszą opcją jest <b>{this.state.bestOptionName}</b> z podatkiem w wysokości {this.state.bestOption} zł.
+							</div>
+						)}
+				</div>
 			</div>
-			</div>
-			
 		);
 	}
 }

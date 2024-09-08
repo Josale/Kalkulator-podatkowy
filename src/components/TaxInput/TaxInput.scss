@@ -5,7 +5,7 @@
 	background-color: rgba(59, 59, 59, 0.13);
 	border-radius: 5px;
 	width: 600px;
-	padding: 10px;
+	padding: 20px;
 	margin: 0px auto;
 
 	&__wrapper {
@@ -18,12 +18,29 @@
 			flex-direction: column;
 
 			&__input {
+				padding: 10px;
+				height: 10px;
 				width: 230px;
+				border: none;
+				border-radius: 5px;
+				&:focus {
+					outline: none;
+				}
 			}
 		}
 	}
 
 	&__label {
 		margin-top: 10px;
+	}
+
+	&__select {		
+		padding: 10px;
+		height: 35px;
+		border: none;
+		border-radius: 5px;
+		&:focus {
+			outline: none;
+		}
 	}
 }

@@ -1,8 +1,8 @@
 
 export const calculateRyczaltTax = (income: number, ryczaltRate: number): number => {
 	
-	const ryczaltTax = income * ryczaltRate;
-	let healthContribution = 0;
+	const ryczaltTax: number = income * ryczaltRate;
+	let healthContribution: number = 0;
 
 	if(ryczaltTax <= 60000) {
 		healthContribution = 12 * 419.46;
@@ -18,9 +18,9 @@ export const calculateRyczaltTax = (income: number, ryczaltRate: number): number
 }
 
 export const calculateFlatTax = (income: number, costs: number): number => {
-	let flatIncome = income - costs;
-	let flatTax = flatIncome * 0.19;
-	let flatHealthContribution = Math.max(flatIncome * 0.049, 12 * 381.78);
+	let flatIncome: number = income - costs;
+	let flatTax: number = flatIncome * 0.19;
+	let flatHealthContribution: number = Math.max(flatIncome * 0.049, 12 * 381.78);
 
 	if(flatIncome < 0) {
 		flatTax = 0;	
@@ -33,10 +33,9 @@ export const calculateFlatTax = (income: number, costs: number): number => {
 }
 
 export const calculateScaleTax = (income: number, costs: number): number => {
-	
-	let scaleTax = 0;
-	let scaleIncome = (income - costs) - 30000;
-	let scaleHealthContribution = Math.max(scaleIncome * 0.09, 12 * 381.78);
+	let scaleTax: number = 0;
+	let scaleIncome: number = (income - costs) - 30000;
+	let scaleHealthContribution: number = Math.max(scaleIncome * 0.09, 12 * 381.78);
 
 	if(scaleIncome < 0) {
 		scaleTax = 0;
