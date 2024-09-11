@@ -1,6 +1,7 @@
 import React from 'react'
 import { CalculateComponentProps, CalculateComponentState } from '../../types/types'
-import { calculateFlatTax, calculateRyczaltTax, calculateScaleTax } from '../../utils/taxCalculations'
+import { CalculateRyczaltTax } from '../../utils/calculateRyczaltTax'
+import { calculateFlatTax, calculateScaleTax } from '../../utils/taxCalculations'
 import './CalculateComponent.scss'
 
 export default class CalculateComponent extends React.Component<CalculateComponentProps, CalculateComponentState> {
@@ -20,7 +21,8 @@ export default class CalculateComponent extends React.Component<CalculateCompone
 		const { ryczaltRate, costs, income }: CalculateComponentProps = this.props;
 
 		if(income >= 0 && costs >= 0) {
-			const countOfRyczaltTax: number = calculateRyczaltTax(income, ryczaltRate);
+			const taxCalculator = new CalculateRyczaltTax(income, ryczaltRate);
+			const countOfRyczaltTax = taxCalculator.calculateRyczaltTax();
 			const countOfFlatTax: number = calculateFlatTax(income, costs);
 			const countOfScaleTax: number = calculateScaleTax(income, costs);
 

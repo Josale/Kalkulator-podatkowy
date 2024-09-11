@@ -46,6 +46,7 @@ export default class TaxInput extends React.Component<{}, TaxInputState> {
           </div>
 
           <label className="form-container__label" htmlFor="lump-sum">Procent ryczałtu</label>
+          {/* Zrobić tablice const arr = [2%, 3%, 4%] */ }
           <select onChange={this.handleSelectChange} className="form-container__select" id="lump-sum" >
             <option value="0.02">2%</option>
             <option value="0.03">3%</option>
