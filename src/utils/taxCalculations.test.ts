@@ -1,4 +1,6 @@
-import { calculateFlatTax, calculateRyczaltTax, calculateScaleTax } from './taxCalculations'
+import { calculateFlatTax } from './CalculateFlatTax'
+import { calculateRyczaltTax } from './CalculateRyczaltTax'
+import { calculateScaleTax } from './CalculateScaleTax'
 
 describe('calculateRyczaltTax', () => {
 	it('should calculate the correct tax for income less than 60,000 zł', () => {

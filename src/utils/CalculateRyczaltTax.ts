@@ -1,26 +1,16 @@
-export class CalculateRyczaltTax {
-	income: number;
-	ryczaltRate: number;
+export const calculateRyczaltTax = (income: number, ryczaltRate: number): number => {
+	const ryczaltTax: number = income * ryczaltRate;
+	let healthContribution: number = 0;
 
-	constructor(income: number, ryczaltRate: number) {
-		this.income = income;
-		this.ryczaltRate = ryczaltRate;
+	if(income <= 60000) {
+		healthContribution = 12 * 419.46;
 	}
-
-	 	calculateRyczaltTax = (): number => {
-		const ryczaltTax: number = this.income * this.ryczaltRate;
-		let healthContribution: number = 0;
-	
-		if(this.income <= 60000) {
-			healthContribution = 12 * 419.46;
-		}
-		if(this.income > 60000 && ryczaltTax <= 300000) {
-			healthContribution = 12 * 699.11;
-		}
-		if(this.income > 300000) {
-			healthContribution = 12 * 1258.39;
-		}
-	
-		return ryczaltTax + healthContribution;
+	if(income > 60000 && ryczaltTax <= 300000) {
+		healthContribution = 12 * 699.11;
 	}
+	if(income > 300000) {
+		healthContribution = 12 * 1258.39;
+	}
+	
+	return ryczaltTax + healthContribution;
 }
