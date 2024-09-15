@@ -18,7 +18,8 @@ export default class TaxInput extends React.Component<{}, TaxInputState> {
       countOfScaleTax: 0,
       bestOption: 0,
       bestOptionName: '',
-      checkBestOption: false,
+      isBestOption: false,
+      isError: false,
     };
   }
 
@@ -31,15 +32,22 @@ export default class TaxInput extends React.Component<{}, TaxInputState> {
   };
 
   handleIncomeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ income: Number(event.target.value) });
-  };
+    const { value } = event.target;
+
+    if (value.length <= 13) {
+        this.setState({ isError: false });
+        this.setState({ income: Number(value) });
+    } else {
+        this.setState({ income: 0 });
+    }
+};
 
   calculateTaxes = () => {
     const { ryczaltRate, costs, income } = this.state;
     return {
-      countOfRyczaltTax: calculateRyczaltTax(income, ryczaltRate),
-      countOfFlatTax: calculateFlatTax(income, costs),
-      countOfScaleTax: calculateScaleTax(income, costs),
+      countOfRyczaltTax: Math.round(calculateRyczaltTax(income, ryczaltRate)),
+      countOfFlatTax: Math.round(calculateFlatTax(income, costs)),
+      countOfScaleTax: Math.round(calculateScaleTax(income, costs)),
     };
   };
 
@@ -68,21 +76,22 @@ export default class TaxInput extends React.Component<{}, TaxInputState> {
       countOfScaleTax,
       bestOption,
       bestOptionName,
-      checkBestOption: true,
+      isBestOption: true,
     }); 
   } else {
-    const { checkBestOption } = this.state;
-    if(checkBestOption === true) {
-       this.setState( { checkBestOption : false } ) 
-    }
-  }
+    const { isBestOption } = this.state;
+    this.setState({ isError: true });
+    if(isBestOption === true) {
+       this.setState({ isBestOption : false });
+    };
+  };
 };
 
   render(): React.ReactNode {
-    const { checkBestOption, bestOptionName, bestOption } = this.state;
+    const { isBestOption, bestOptionName, bestOption, isError } = this.state;
 
     return (
-      <div>
+      <div className='tax-calc-container'>
         <div className="tax-calc">
           <div className="tax-calc__heading">Oblicz podatek</div>
           <div className="tax-calc__body">
@@ -90,13 +99,13 @@ export default class TaxInput extends React.Component<{}, TaxInputState> {
               <label className="tax-calc__label" htmlFor="revenue">Przychody</label>
               <input
                 onChange={this.handleIncomeChange}
-                className="tax-calc__inputs-item"
+                className={isError ? "tax-calc__error" : "tax-calc__inputs-item" }
                 type="number"
                 id="revenue" />
               <label className="tax-calc__label" htmlFor="costs">Ilość kosztów</label>
               <input
                 onChange={this.handleCostsChange}
-                className="tax-calc__inputs-item"
+                className={isError ? "tax-calc__error" : "tax-calc__inputs-item"}
                 type="number"
                 id="costs" />
               <label className="tax-calc__label" htmlFor="lump-sum">Procent ryczałtu</label>
@@ -112,17 +121,17 @@ export default class TaxInput extends React.Component<{}, TaxInputState> {
             <div className="tax-calc__result-wrap">
               <div className="tax-calc__result-wrap__result">
                 <p className='tax-calc__header-info'>Najlepszą opcją dla ciebie jest:</p>
-                <br />
-                {checkBestOption ? (
+                {isBestOption && (
+                  <>
                   <div className="tax-calc-button-wrapper">
-                    <b className='tax-calc__main-info'>{bestOptionName}</b> <br />
-                    <p className='tax-calc__footer-info'>{bestOption} zł</p>
+                    <div className='tax-calc__main-info'>{bestOptionName} o wysokości: {bestOption} zł</div>
                   </div>
-                ) :
-                <div className="tax-calc-button-wrapper">
-                    <b className='tax-calc__main-info'>Podaj poprawne dane</b> <br />
-                    <p className='tax-calc__footer-info'>0 zł</p>
-                </div> }
+                  <p className='tax-calc__header-info'>Wszystkie opcje:</p>
+                  <div className='tax-calc__footer-info'>Ryczałt o wysokości: {this.state.countOfRyczaltTax} zł</div>
+                  <div className='tax-calc__footer-info'>Podatek liniowy o wysokości: {this.state.countOfFlatTax} zł</div>
+                  <div className='tax-calc__footer-info'>Podatek skalowy o wysokości: {this.state.countOfScaleTax} zł</div>
+                  </>
+                )}
                 <button
                   className='tax-calc-button__item'
                   type="submit"
@@ -133,5 +142,5 @@ export default class TaxInput extends React.Component<{}, TaxInputState> {
         </div>
       </div>
     );
-  }
-}
+  };
+};

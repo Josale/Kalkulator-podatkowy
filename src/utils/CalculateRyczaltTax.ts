@@ -1,15 +1,19 @@
+import { RyczaltHealthContributionRate } from '../dictionaries/RyczaltHealthContributionRate'
+
 export const calculateRyczaltTax = (income: number, ryczaltRate: number): number => {
+	const firstTaxBracket = 60000;
+	const secondTaxBracket = 300000;
 	const ryczaltTax: number = income * ryczaltRate;
 	let healthContribution: number = 0;
 
-	if(income <= 60000) {
-		healthContribution = 12 * 419.46;
+	if(income <= firstTaxBracket) {
+		healthContribution = 12 * RyczaltHealthContributionRate.Low;
 	}
-	if(income > 60000 && ryczaltTax <= 300000) {
-		healthContribution = 12 * 699.11;
+	if(income > firstTaxBracket && ryczaltTax <= secondTaxBracket) {
+		healthContribution = 12 * RyczaltHealthContributionRate.Medium;
 	}
-	if(income > 300000) {
-		healthContribution = 12 * 1258.39;
+	if(income > secondTaxBracket) {
+		healthContribution = 12 * RyczaltHealthContributionRate.High;
 	}
 	
 	return ryczaltTax + healthContribution;

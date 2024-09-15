@@ -10,17 +10,18 @@ export interface CalculateComponentState {
 	countOfScaleTax: number;
 	bestOption: number;
 	bestOptionName: string;
-	checkBestOption: boolean;
+	isBestOption: boolean;
 }
 
 export interface TaxInputState {
   ryczaltRate: number;
   costs: number;
   income: number;
-  checkBestOption: boolean;
+  isBestOption: boolean;
   bestOptionName: string;
   bestOption: number;
   countOfRyczaltTax: number;
   countOfFlatTax: number;
   countOfScaleTax: number;
+	isError: boolean;
 }

@@ -8,6 +8,8 @@ body {
  display: flex;
  flex-direction: column;
  align-items: center;
+ max-width: 1306px;
+ margin: auto;
 
  &__info {
 	text-transform: uppercase;
