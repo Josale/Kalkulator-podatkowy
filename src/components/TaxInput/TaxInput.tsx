@@ -1,4 +1,5 @@
 import React from 'react'
+import { handleKeyPress } from '../../helpers/handleKeyPress'
 import { TaxInputState } from '../../types/types'
 import { calculateFlatTax } from '../../utils/CalculateFlatTax'
 import { calculateRyczaltTax } from '../../utils/CalculateRyczaltTax'
@@ -7,140 +8,247 @@ import { ryczaltRates } from '../../utils/ryczaltRates'
 import './TaxInput.scss'
 
 export default class TaxInput extends React.Component<{}, TaxInputState> {
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      ryczaltRate: 0.02,
-      costs: 0,
-      income: 0,
-      countOfRyczaltTax: 0,
-      countOfFlatTax: 0,
-      countOfScaleTax: 0,
-      bestOption: 0,
-      bestOptionName: '',
-      isBestOption: false,
-      isError: false,
-    };
-  }
+	constructor(props: {}) {
+		super(props)
+		this.state = {
+			ryczaltRate: 0.02,
+			costs: 0,
+			income: 0,
+			countOfRyczaltTax: 0,
+			countOfFlatTax: 0,
+			countOfScaleTax: 0,
+			taxScaleOption: 0,
+			taxFlatOption: 0,
+			taxRyczaltOption: 0,
+			bestOption: 0,
+			bestOptionName: '',
+			isBestOption: false,
+			isError: false,
+			isErrorSecond: false,
+			isFocus: false,
+			isFocusSecond: false,
+			inputValue: '',
+			inputValueSecond: '',
+			errorMessage: '',
+			errorMessageSecond: '',
+		}
+	}
 
-  handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    this.setState({ ryczaltRate: Number(event.target.value) });
-  };
+	handleBlur = () => {
+		const { inputValue } = this.state
+		if (inputValue.length > 0) {
+			return
+		}
+		this.setState({ isFocus: false })
+	}
 
-  handleCostsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ costs: Number(event.target.value) });
-  };
+	handleBlurSecond = () => {
+		const { inputValueSecond } = this.state
+		if (inputValueSecond.length > 0) {
+			return
+		}
+		this.setState({ isFocusSecond: false })
+	}
 
-  handleIncomeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
+	handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+		this.setState({ ryczaltRate: Number(event.target.value) })
+	}
 
-    if (value.length <= 13) {
-        this.setState({ isError: false });
-        this.setState({ income: Number(value) });
-    } else {
-        this.setState({ income: 0 });
-    }
-};
+	handleCostsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const { value } = event.target
+		this.setState({ inputValueSecond: value })
 
-  calculateTaxes = () => {
-    const { ryczaltRate, costs, income } = this.state;
-    return {
-      countOfRyczaltTax: Math.round(calculateRyczaltTax(income, ryczaltRate)),
-      countOfFlatTax: Math.round(calculateFlatTax(income, costs)),
-      countOfScaleTax: Math.round(calculateScaleTax(income, costs)),
-    };
-  };
+		if (value.length <= 14) {
+			this.setState({ isErrorSecond: false })
+			this.setState({ costs: Number(value) })
+		} else {
+			this.setState({ isErrorSecond: true })
+		}
+	}
 
-  calcBestOption = (): void => {
-    const { income } = this.state;
+	handleIncomeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const { value } = event.target
+		this.setState({ inputValue: value })
 
-    if(income > 0) {
-    const { countOfRyczaltTax, countOfFlatTax, countOfScaleTax } = this.calculateTaxes();
+		if (value.length <= 14) {
+			this.setState({ isError: false })
+			this.setState({ income: Number(value) })
+		} else {
+			this.setState({ isError: true })
+			this.setState({ income: 0 })
+		}
+	}
 
-    let bestOption = Math.round(countOfRyczaltTax);
-    let bestOptionName = 'Ryczałt';
+	calculateTaxes = () => {
+		const { ryczaltRate, costs, income } = this.state
+		return {
+			countOfRyczaltTax: Math.round(calculateRyczaltTax(income, ryczaltRate)),
+			countOfFlatTax: Math.round(calculateFlatTax(income, costs)),
+			countOfScaleTax: Math.round(calculateScaleTax(income, costs)),
+		}
+	}
 
-    if (countOfFlatTax < bestOption) {
-      bestOption = Math.round(countOfFlatTax);
-      bestOptionName = 'Podatek liniowy';
-    }
+	calcBestOption = (): void => {
+		if (!this.state.isErrorSecond) {
+			const { income } = this.state
 
-    if (countOfScaleTax < bestOption) {
-      bestOption = Math.round(countOfScaleTax);
-      bestOptionName = 'Podatek skalowy';
-    }
+			if (income > 0) {
+				const { countOfRyczaltTax, countOfFlatTax, countOfScaleTax } =
+					this.calculateTaxes()
 
-    this.setState({
-      countOfRyczaltTax,
-      countOfFlatTax,
-      countOfScaleTax,
-      bestOption,
-      bestOptionName,
-      isBestOption: true,
-    }); 
-  } else {
-    const { isBestOption } = this.state;
-    this.setState({ isError: true });
-    if(isBestOption === true) {
-       this.setState({ isBestOption : false });
-    };
-  };
-};
+				let bestOption = Math.round(countOfRyczaltTax)
+				let bestOptionName = 'ryczałt'
 
-  render(): React.ReactNode {
-    const { isBestOption, bestOptionName, bestOption, isError } = this.state;
+				if (countOfFlatTax < bestOption) {
+					bestOption = Math.round(countOfFlatTax)
+					bestOptionName = 'podatek liniowy'
+				}
 
-    return (
-      <div className='tax-calc-container'>
-        <div className="tax-calc">
-          <div className="tax-calc__heading">Oblicz podatek</div>
-          <div className="tax-calc__body">
-            <div className="tax-calc__inputs-wrap">
-              <label className="tax-calc__label" htmlFor="revenue">Przychody</label>
-              <input
-                onChange={this.handleIncomeChange}
-                className={isError ? "tax-calc__error" : "tax-calc__inputs-item" }
-                type="number"
-                id="revenue" />
-              <label className="tax-calc__label" htmlFor="costs">Ilość kosztów</label>
-              <input
-                onChange={this.handleCostsChange}
-                className={isError ? "tax-calc__error" : "tax-calc__inputs-item"}
-                type="number"
-                id="costs" />
-              <label className="tax-calc__label" htmlFor="lump-sum">Procent ryczałtu</label>
-              <select
-                onChange={this.handleSelectChange}
-                className="tax-calc__inputs-item"
-                id="lump-sum">
-                {ryczaltRates.map((rate, index) => (
-                  <option key={index} value={rate.value}>{rate.label}</option>
-                ))}
-              </select>
-            </div>
-            <div className="tax-calc__result-wrap">
-              <div className="tax-calc__result-wrap__result">
-                <p className='tax-calc__header-info'>Najlepszą opcją dla ciebie jest:</p>
-                {isBestOption && (
-                  <>
-                  <div className="tax-calc-button-wrapper">
-                    <div className='tax-calc__main-info'>{bestOptionName} o wysokości: {bestOption} zł</div>
-                  </div>
-                  <p className='tax-calc__header-info'>Wszystkie opcje:</p>
-                  <div className='tax-calc__footer-info'>Ryczałt o wysokości: {this.state.countOfRyczaltTax} zł</div>
-                  <div className='tax-calc__footer-info'>Podatek liniowy o wysokości: {this.state.countOfFlatTax} zł</div>
-                  <div className='tax-calc__footer-info'>Podatek skalowy o wysokości: {this.state.countOfScaleTax} zł</div>
-                  </>
-                )}
-                <button
-                  className='tax-calc-button__item'
-                  type="submit"
-                  onClick={this.calcBestOption}>Sprawdz</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
-};
+				if (countOfScaleTax < bestOption) {
+					bestOption = Math.round(countOfScaleTax)
+					bestOptionName = 'skala podatkowa'
+				}
+
+				this.setState({
+					countOfRyczaltTax,
+					countOfFlatTax,
+					countOfScaleTax,
+					bestOption,
+					bestOptionName,
+					isBestOption: true,
+				})
+			} else {
+				this.setState({ isError: true })
+			}
+		}
+	}
+
+	render(): React.ReactNode {
+		const {
+			isBestOption,
+			bestOptionName,
+			bestOption,
+			isError,
+			isErrorSecond,
+			isFocus,
+			isFocusSecond,
+			countOfRyczaltTax,
+			countOfScaleTax,
+			countOfFlatTax,
+		} = this.state
+
+		const remainingOptions = [
+			{ name: 'podatek liniowy', value: countOfFlatTax },
+			{ name: 'skala podatkowa', value: countOfScaleTax },
+			{ name: 'ryczałt', value: countOfRyczaltTax },
+		].filter(option => option.name !== bestOptionName)
+
+		return (
+			<div className='container'>
+				<div className='card'>
+					<div className='card__header'>Oblicz podatek</div>
+					<div className='card__body'>
+						<div className='card__inputs'>
+							<div className='wrapper'>
+								<div className='card__inputs-wrapper'>
+									<span
+										className={`${
+											isFocus ? 'card__focused' : 'card__inputs-wrap__label'
+										}`}
+									>
+										Przychody
+									</span>
+									<input
+										onFocus={() => this.setState({ isFocus: true })}
+										onBlur={this.handleBlur}
+										onChange={this.handleIncomeChange}
+										onKeyPress={handleKeyPress}
+										className={`${
+											isError ? 'card__error__income' : 'card__inputs-item'
+										}`}
+										type='number'
+									/>
+								</div>
+								{this.state.inputValue.length > 14 && this.state.isError && (
+									<span className='error-message'>
+										można wpisać tylko 14 cyfr
+									</span>
+								)}
+								{this.state.inputValue.length <= 0 && isError && (
+									<span className='error-message'>
+										liczba musi być większa od 0
+									</span>
+								)}
+							</div>
+							<div className='wrapper'>
+								<div className='card__inputs-wrapper'>
+									<span
+										className={`${
+											isFocusSecond
+												? 'card__focused'
+												: 'card__inputs-wrap__label'
+										}`}
+									>
+										Ilość kosztów
+									</span>
+									<input
+										onFocus={() => this.setState({ isFocusSecond: true })}
+										onBlur={this.handleBlurSecond}
+										onChange={this.handleCostsChange}
+										onKeyPress={handleKeyPress}
+										className={`${
+											isErrorSecond ? 'card__error__costs' : 'card__inputs-item'
+										}`}
+										type='number'
+									/>
+								</div>
+								{this.state.inputValueSecond.length >= 14 &&
+									this.state.isErrorSecond && (
+										<span className='error-message'>
+											można wpisać tylko 14 cyfr
+										</span>
+									)}
+							</div>
+							<div className='card__inputs-wrapper'>
+								<span className='card__inputs-wrap__label'>
+									Procent ryczałtu
+								</span>
+								<select
+									onChange={this.handleSelectChange}
+									className='card__inputs-item'
+								>
+									{ryczaltRates.map((rate, index) => (
+										<option key={index} value={rate.value}>
+											{rate.label}
+										</option>
+									))}
+								</select>
+							</div>
+						</div>
+						<div className='card__result'>
+							<div className='card__result-header'>
+								<p>Podatek {bestOptionName} wynosi: </p>
+								<h3>
+									{bestOption} zł <span>to jest najlepsza opcja</span>
+								</h3>
+							</div>
+							<hr />
+							<div className='card__result-main'>
+								{isBestOption &&
+									remainingOptions.map((option, index) => (
+										<div key={index} className='card__result-option'>
+											<p>{option.name} wynosi:</p>
+											<h3>{option.value} zł</h3>
+										</div>
+									))}
+							</div>
+							<div className='card__result-button'>
+								<button onClick={this.calcBestOption}>Oblicz</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		)
+	}
+}

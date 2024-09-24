@@ -7,8 +7,7 @@ export default class App extends React.Component {
   render(): ReactNode {
 
     return (
-      <div className='container'>
-        <p className='container__info'>kalkulator podatkowy</p>
+      <div className='app'>
       <TaxInput />
       </div>
     );

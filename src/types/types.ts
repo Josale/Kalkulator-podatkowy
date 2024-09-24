@@ -1,18 +1,3 @@
-export interface CalculateComponentProps {
-	ryczaltRate: number;
-	costs: number;
-	income: number;
-}
-
-export interface CalculateComponentState {
-	countOfRyczaltTax: number;
-	countOfFlatTax: number;
-	countOfScaleTax: number;
-	bestOption: number;
-	bestOptionName: string;
-	isBestOption: boolean;
-}
-
 export interface TaxInputState {
   ryczaltRate: number;
   costs: number;
@@ -23,5 +8,15 @@ export interface TaxInputState {
   countOfRyczaltTax: number;
   countOfFlatTax: number;
   countOfScaleTax: number;
+  taxFlatOption: number;
+  taxScaleOption: number;
+  taxRyczaltOption: number;
 	isError: boolean;
+  isErrorSecond: boolean;
+  isFocus: boolean;
+  isFocusSecond: boolean;
+  inputValue: string;
+  inputValueSecond: string;
+  errorMessage: string;
+  errorMessageSecond: string;
 }

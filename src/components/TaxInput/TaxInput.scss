@@ -1,273 +1,292 @@
-.tax-calc-container {
+.container {
 	width: 100%;
 }
 
-.tax-calc {
+.card {
 	display: flex;
 	flex-direction: column;
-	gap: 5px;
-	width: 1168px; 
-	max-width: 100%; 
-	height: auto; 
-	padding: 48px 68px;
+	width: 100%;
+	padding: 30px 40px;
 	margin: 0px auto;
-	border: 1px solid rgba(38, 38, 38, .08);
+	margin-top: 30px;
+	border: 1px solid rgba(38, 38, 38, 0.08);
 	border-radius: 20px;
-	box-shadow: 0 1px 2px rgba(38, 38, 38, .04), 0 2px 4px rgba(38, 38, 38, .16);
+	box-shadow: 0 1px 2px rgba(38, 38, 38, 0.04), 0 2px 4px rgba(38, 38, 38, 0.16);
+	box-sizing: border-box;
 
-	&__header-info {
-		font-size: 20px;
-		font-weight: 500;
-		margin: 15px;
-	}
-
-	&__main-info {
-		background-color: #ffffff;
-		font-size: 25px;
-		line-height: 0px;
-		color: black;
-		padding: 25px;
-		border-radius: 10px;
-		border: 1px solid rgba(38, 38, 38, .08);
-	}
-
-	&__footer-info {
-		font-size: 16px;
-		font-weight: 500;
-		margin: 3px;
-		padding: 5px 10px;
-	}
-
-	.tax-calc-button-wrapper {
+	&__header {
 		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-
-	.tax-calc-button__item {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		height: 40px;
-		width: 400px;
-		margin: 0px auto;
-		margin-top: auto;
-		margin-bottom: 30px;
-		background-color: #148F2B;
-		border: none;
-		border-radius: 20px;
-		color: white;
-		font-size: 20px;
-		cursor: pointer;
+		color: #232323;
+		margin: 0 0 32px;
+		font: 32px / 42px Helvetica, sans-serif;
 	}
 
 	&__body {
 		display: flex;
 		gap: 50px;
-		justify-content: center;
-	}
 
-	&__heading {
-		color: #232323;
-		margin: 0 0 32px;
-		font: 500 32px / 42px Helvetica, sans-serif;
-	}
-
-	&__inputs-wrap {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		width: 550px;
-	}
-
-	&__button {
-		background: #148F2B;
-		color: #FFFFFF;
-		border-radius: 8px;
-		border: none;
-		font: 600 16px / 20px Arial, sans-serif;
-		height: 52px;
-		width: 450px;
-		margin-top: 35px;
-		padding: 0 32px;
-		cursor: pointer;
-	}
-
-	&__result-wrap {
-		&__result {
+		.card__inputs {
 			display: flex;
 			flex-direction: column;
-			text-align: center;
-			max-width: 520px;
+			gap: 30px;
+			max-width: 50%;
 			width: 100%;
-			height: 360px;
-			background: rgba(245, 245, 245, 0.635);
-			border: 1px solid rgba(38, 38, 38, .08);
-			border-radius: 16px;
-			padding: 16px;
+		}
+
+		.card__inputs-wrapper {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			gap: 40px;
+			width: 100%;
+
+			.card__inputs-wrap__label {
+				top: 25%;
+				left: 10px;
+				transform: translateY(0);
+				font-size: 12px;
+				color: #78909c;
+			}
+		}
+
+		.card__result {
+			display: flex;
+			flex-direction: column;
+			max-width: 40%;
+			width: 100%;
+		}
+	}
+
+	&__error {
+		&__income {
+			margin-top: 8px;
+			background-color: #e7eef3;
+			border: none;
+			border-radius: 8px;
+			border: 1px solid #8f1414;
+			color: #262626;
+			font-family: 'Sora', sans-serif;
+			font-size: 15px;
+			font-weight: 500;
+			padding: 30px 0px 15px 15px;
+			&:focus {
+				outline-color: #8f1414;
+			}
+		}
+		&__costs {
+			margin-top: 8px;
+			background-color: #e7eef3;
+			border: none;
+			border-radius: 8px;
+			border: 1px solid #8f1414;
+			color: #262626;
+			font-family: 'Sora', sans-serif;
+			font-size: 15px;
+			font-weight: 500;
+			padding: 30px 0px 15px 15px;
+			&:focus {
+				outline-color: #8f1414;
+			}
 		}
 	}
 
 	&__inputs-item {
 		margin-top: 8px;
-		background-color: #FFFFFF;
-		border: 1px solid rgba(38, 38, 38, .24);
-		border-radius: 4px;
-		font: 600 15px / 20px Arial, sans-serif;
-		padding: 16px;
+		background-color: #e7eef3;
+		border: none;
+		border-radius: 8px;
+		color: #262626;
+		font-family: 'Sora', sans-serif;
+		font-size: 15px;
+		font-weight: 500;
+		padding: 30px 0px 15px 15px;
+
 		&:last-child {
 			-webkit-appearance: none;
-			max-width: 559px;
 		}
 		&:focus {
-			outline-color: #148F2B;
-		}
-	}
-
-	&__error {
-		margin-top: 8px;
-		background-color: #FFFFFF;
-		border: 1px solid #8f1414;
-		border-radius: 4px;
-		font: 600 15px / 20px Arial, sans-serif;
-		padding: 16px;
-		&:focus {
-			outline-color: #8f1414;
-		}
-	}
-
-	&__label {
-		margin-top: 20px;
-		&:first-child {
-			margin-top: 0px;
+			outline: none;
 		}
 	}
 }
 
-@media (max-width: 768px) {
-	.tax-calc {
-		width: 90%;
-		padding: 20px;
+.card__inputs-wrap__label {
+	position: absolute;
+	top: 55%;
+	left: 13px;
+	transform: translateY(-50%);
+	padding: 0 5px;
+	color: #78909c;
+	font-family: 'Sora', sans-serif;
+	font-size: 13px;
+	font-weight: 500;
+	pointer-events: none;
+	transition: all 0.2s ease;
+}
+
+.card__focused {
+	position: absolute;
+	top: 25%;
+	left: 10px;
+	transform: translateY(0);
+	font-size: 12px;
+	color: #78909c;
+	padding: 0 5px;
+	font-family: 'Sora', sans-serif;
+	font-weight: 500;
+	pointer-events: none;
+	transition: all 0.2s ease;
+}
+
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+.card__inputs-wrapper {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+}
+
+.card__result-header {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+	padding: 10px 0px 0px 15px;
+	p,
+	h3,
+	span {
+		margin: 0;
+	}
+	p {
+		font-size: 20px;
+	}
+	h3 {
+		font-size: 40px;
+		line-height: 40px;
+	}
+	span {
+		font-size: 14px;
+		font-weight: 500;
+	}
+}
+
+.card__result-main {
+	display: flex;
+	flex-direction: column;
+	gap: 25px;
+	padding: 10px 0px 0px 15px;
+	p,
+	h3,
+	span {
+		margin: 0;
+	}
+	&__left {
+		display: flex;
 		align-items: center;
-
-		&__main-info {
-			font-size: 18px; 
-			padding: 15px;
+		gap: 10px;
+		p {
+			line-height: 22px;
+			color: #202020;
 		}
-
-		.tax-calc-button__item,
-		&__button {
-			width: 100%;
-			max-width: 450px;
-			font-size: 16px;
-			padding: 10px;
-		}
-
-		&__inputs-wrap {
-			max-width: 500px;
-		}
-
-		&__body {
-			flex-direction: column;
-			justify-content: center;
-			margin: 0 auto;
-			gap: 20px;
-		}
-
-		&__error {
-			padding: 8px;
-		}
-
-		&__result-wrap {
-			&__result {
-				width: 100%;
-				max-width: 465px;
-			}
-		}
-
-		&__header-info {
-			font-size: 16px;
-		}
-
-		&__heading {
-			font-size: 24px;
-		}
-	}
-}
-
-@media (max-width: 578px) {
-	.tax-calc {
-		&__inputs-wrap {
-			max-width: 350px;
-		}
-
-		&__result-wrap {
-			&__result {
-				max-width: 315px;
-			}
-		}
-	}
-}
-
-@media (max-width: 480px) {
-	.tax-calc {
-		padding: 15px;
-
-		&__heading {
+		h3 {
 			font-size: 20px;
 		}
-
-		.tax-calc-button__item,
-		&__button {
-			font-size: 14px;
-			padding: 8px;
+	}
+	&__right {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		p {
+			line-height: 22px;
+			color: #202020;
+		}
+		h3 {
+			font-size: 20px;
 		}
 	}
 }
 
-@media (max-width: 400px) {
-	.container__info {
+.card__result-button {
+	display: flex;
+	width: 100%;
+	margin-top: auto;
+	button {
+		height: 50px;
+		width: 100%;
+		background-color: #009e36;
+		border: none;
+		border-radius: 8px;
+		color: #fff;
+		cursor: pointer;
+	}
+}
+
+hr {
+	width: 95%;
+	background: 0 0;
+	border: none;
+	border-top: 1px solid #45474627;
+}
+
+.card__result-option {
+	display: flex;
+	gap: 10px;
+}
+
+.error-message {
+	font-size: 14px;
+	color: #b30000de;
+	margin-left: 5px;
+}
+
+@media (max-width: 1575px) {
+	h3 {
+		span {
+			display: none;
+		}
+	}
+}
+
+@media (max-width: 1255px) {
+	.card {
+		align-items: center;
+	}
+	.card__body {
+		flex-direction: column;
+		align-items: center;
+		width: 100%;
+		gap: 20px;
+	}
+	.card__body .card__result {
+		max-width: 90%;
+	}
+	.card__body .card__inputs {
+		max-width: 90%;
+	}
+	.card__result-main {
+		margin-bottom: 15px;
+	}
+}
+
+@media (max-width: 500px) {
+	.card__result-header h3 {
+		font-size: 25px;
+		line-height: 40px;
+	}
+	h3 {
+		font-size: 15px;
+		line-height: 20px;
+	}
+	.card__result-header p {
 		font-size: 15px;
 	}
-
-	.tax-calc {
-		&__inputs-wrap {
-			max-width: 250px;
-		}
-
-		&__main-info {
-			font-size: 12px;
-		}
-
-		&__result-wrap {
-			&__result {
-				max-width: 215px;
-			}
-		}
+	p {
+		font-size: 12px;
 	}
-}
-
-@media (max-width: 300px) {
-	.container__info {
-		font-size: 10px;
-	}
-
-	.tax-calc {
-		height: 950px;
-
-		&__inputs-wrap {
-			max-width: 150px;
-		}
-
-		&__main-info {
-			font-size: 5px;
-		}
-
-		&__result-wrap {
-			&__result {
-				max-width: 115px;
-				height: 540px;
-			}
-		}
+	.card__header {
+		font: 20px / 18px Helvetica, sans-serif;
 	}
 }
