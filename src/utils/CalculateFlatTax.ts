@@ -1,3 +1,5 @@
+
+
 export const calculateFlatTax = (income: number, costs: number): number => {
 	const flatIncome: number = income - costs;
 	const flatHealthContribution: number = Math.max(flatIncome * 0.049, 12 * 381.78);

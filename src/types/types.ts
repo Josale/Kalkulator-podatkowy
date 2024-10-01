@@ -8,15 +8,8 @@ export interface TaxInputState {
   countOfRyczaltTax: number;
   countOfFlatTax: number;
   countOfScaleTax: number;
-  taxFlatOption: number;
-  taxScaleOption: number;
-  taxRyczaltOption: number;
-	isError: boolean;
+  isError: boolean;
   isErrorSecond: boolean;
-  isFocus: boolean;
-  isFocusSecond: boolean;
   inputValue: string;
   inputValueSecond: string;
-  errorMessage: string;
-  errorMessageSecond: string;
 }

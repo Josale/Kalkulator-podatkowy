@@ -1,0 +1,36 @@
+.card__inputs-wrapper {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: center;
+  gap: 40px;
+  width: 100%;
+
+  .card__inputs-wrap__label {
+    position: absolute;
+    top: 25%;
+    left: 15px;
+    transform: translateY(0);
+    font-size: 12px;
+    color: #78909c;
+  }
+}
+
+.card__inputs-item {
+  margin-top: 8px;
+  background-color: #e7eef3;
+  border: none;
+  border-radius: 8px;
+  color: #262626;
+  font-family: 'Sora', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 30px 0px 15px 15px;
+
+  &:last-child {
+    -webkit-appearance: none;
+  }
+  &:focus {
+    outline: none;
+  }
+}

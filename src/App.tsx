@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react'
 import '../index.scss'
-import TaxInput from './components/TaxInput/TaxInput'
+import Calculator from "./pages/Calculator.tsx";
 
 export default class App extends React.Component {
 
@@ -8,7 +8,7 @@ export default class App extends React.Component {
 
     return (
       <div className='app'>
-      <TaxInput />
+        <Calculator />
       </div>
     );
   }

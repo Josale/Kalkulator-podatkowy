@@ -13,3 +13,35 @@ body {
  width: 100%;
  margin: auto;
 }
+
+@media (max-width: 1575px) {
+ h3 {
+  span {
+   display: none;
+  }
+ }
+}
+
+@media (max-width: 1255px) {
+ .card {
+  align-items: center;
+ }
+ .card__body {
+  flex-direction: column;
+  width: 100%;
+ }
+}
+
+@media (max-width: 580px) {
+ .card__result-header h3 {
+  font-size: 25px;
+  line-height: 40px;
+ }
+ h3 {
+  font-size: 15px;
+  line-height: 20px;
+ }
+ p {
+  font-size: 12px;
+ }
+}
