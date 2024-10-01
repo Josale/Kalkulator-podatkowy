@@ -1,50 +1,58 @@
-# React + TypeScript + Vite
+# Tax Calculator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple and intuitive web application to calculate various types of taxes based on user inputs for income, expenses, and applicable tax rates. This project is built using React and provides a user-friendly interface for estimating tax obligations.
 
-Currently, two official plugins are available:
+## Table of Contents
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Features](#features)
+- [Technologies](#technologies)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **User Input:** Collect income, costs, and tax rate from the user.
+- **Real-Time Calculation:** Calculate different types of taxes (lump sum, flat tax, scale tax) based on the inputs.
+- **Best Option Display:** Suggest the best tax option based on the user's financial situation.
+- **Error Handling:** Provides feedback for invalid inputs.
 
-- Configure the top-level `parserOptions` property like this:
+## Technologies
 
-```js
-export default tseslint.config({
-	languageOptions: {
-		// other options...
-		parserOptions: {
-			project: ['./tsconfig.node.json', './tsconfig.app.json'],
-			tsconfigRootDir: import.meta.dirname,
-		},
-	},
-})
-```
+This project is built with the following technologies:
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- **React:** A JavaScript library for building user interfaces.
+- **TypeScript:** A superset of JavaScript that adds static types.
+- **SCSS:** A preprocessor for CSS that allows for variables, nested rules, and more.
+- **Custom Tax Calculation Logic:** Modular utility functions for tax calculations.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Installation
 
-export default tseslint.config({
-	// Set the react version
-	settings: { react: { version: '18.3' } },
-	plugins: {
-		// Add the react plugin
-		react,
-	},
-	rules: {
-		// other rules...
-		// Enable its recommended rules
-		...react.configs.recommended.rules,
-		...react.configs['jsx-runtime'].rules,
-	},
-})
-```
+To set up the project locally, follow these steps:
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/your-username/tax-calculator.git
+2. **Navigate to the project directory:**
+   
+   ```bash
+   cd tax-calculator
+
+## Usage
+Enter your income in the provided input field.
+Enter your expenses.
+Select the tax rate from the dropdown.
+Click the "Calculate" button to see the results.
+The application will display the calculated taxes and suggest the best option.
+
+## Contributing
+Contributions are welcome! If you would like to contribute to this project, please follow these steps:
+
+Fork the repository.
+Create a new branch (git checkout -b feature/YourFeature).
+Make your changes and commit them (git commit -m 'Add your feature').
+Push to the branch (git push origin feature/YourFeature).
+Create a pull request.
