@@ -16,7 +16,7 @@ A simple and intuitive web application to calculate various types of taxes based
 
 - **User Input:** Collect income, costs, and tax rate from the user.
 - **Real-Time Calculation:** Calculate different types of taxes (lump sum, flat tax, scale tax) based on the inputs.
-- **Best Option Display:** Suggest the best tax option based on the user's financial situation.
+- **Best Option Display:** Suggest the best tax option based on the user's inputs.
 - **Error Handling:** Provides feedback for invalid inputs.
 
 ## Technologies
@@ -40,19 +40,22 @@ To set up the project locally, follow these steps:
    
    ```bash
    cd tax-calculator
+3. **Install dependencies:**
+
+   ```bash
+   npm install
+4. **Start the application:**
+
+   ```bash
+   npm start
+5. **Open your browser and visit:**
+
+   ```bash
+   http://localhost:3000
 
 ## Usage
 Enter your income in the provided input field.
-Enter your expenses.
+Enter your expenses (if you have).
 Select the tax rate from the dropdown.
 Click the "Calculate" button to see the results.
 The application will display the calculated taxes and suggest the best option.
-
-## Contributing
-Contributions are welcome! If you would like to contribute to this project, please follow these steps:
-
-Fork the repository.
-Create a new branch (git checkout -b feature/YourFeature).
-Make your changes and commit them (git commit -m 'Add your feature').
-Push to the branch (git push origin feature/YourFeature).
-Create a pull request.
