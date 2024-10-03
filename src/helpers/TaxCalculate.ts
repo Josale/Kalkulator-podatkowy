@@ -15,19 +15,20 @@ export interface Taxes {
 
 export default class taxCalculate {
     public static taxCalculation(revenue: number, costs: number, ryczaltRate: number): Taxes {
-        const ryczalt = Math.round(calculateRyczaltTax(revenue, ryczaltRate))
-        const flat = Math.round(calculateFlatTax(revenue, costs))
-        const scale = Math.round(calculateScaleTax(revenue, costs))
-        let bestOption
-        let bestOptionName
+        const ryczalt = calculateRyczaltTax(revenue, ryczaltRate);
+        const flat = calculateFlatTax(revenue, costs);
+        const scale = calculateScaleTax(revenue, costs);
+        let bestOption;
+        let bestOptionName;
         if(revenue > 0 && String(revenue).length <= 14) {
             if(String(costs).length > 14) {
                 return <Taxes> {
                     isErrorExpenses: true,
                 }
             }
-             bestOption = ryczalt;
-             bestOptionName = 'ryczałt';
+
+            bestOption = ryczalt;
+            bestOptionName = 'ryczałt';
 
             if (flat < bestOption) {
                 bestOption = flat;
@@ -38,6 +39,13 @@ export default class taxCalculate {
                 bestOption = scale;
                 bestOptionName = 'skala podatkowa';
             }
+
+            // const object1 = {
+            //     a: 'somestring',
+            //     b: 42,
+            //     c: false,
+            // };
+
         } else {
             return <Taxes> {
                 isErrorRevenue: true,
