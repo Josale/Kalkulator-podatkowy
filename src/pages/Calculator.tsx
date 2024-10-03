@@ -2,7 +2,7 @@ import React from "react";
 import CalculatorForm from "../components/CalculatorForm/CalculatorForm.tsx";
 import CalculatorResult from "../components/CalculatorResult/CalculatorResult.tsx";
 import Card from "../components/Card/Card.tsx";
-import { Taxes } from "../helpers/taxCalculate.ts";
+import { Taxes } from "../helpers/TaxCalculate.ts";
 
 interface ICalculatorState {
     taxResult: Taxes;

@@ -1,6 +1,5 @@
 import React from "react";
 import './CalculatorFormTextInput.scss';
-import { handleKeyPress } from "../../helpers/handleKeyPress.ts";
 
 interface ICalculatorFormTextInputProps {
     label: string;
@@ -24,14 +23,12 @@ export default class CalculatorFormTextInput extends React.Component<ICalculator
         };
     }
 
-    handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value;
-        let isError = false;
+    handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+        const value = event.currentTarget.value.replace(/[^0-9]/g, '');
+        let isError = value.length > 14;
 
         if (this.props.isIncome) {
             isError = value === '' || value === '0' || value.length > 14;
-        } else {
-            isError = value.length > 14;
         }
 
         this.setState({
@@ -54,8 +51,8 @@ export default class CalculatorFormTextInput extends React.Component<ICalculator
                     </label>
                     <input
                         id={inputId}
-                        onKeyPress={handleKeyPress}
                         onChange={this.handleInputChange}
+                        name={this.props.inputName}
                         className={`${isError ? 'card__error' : 'card__inputs-item'}`}
                         type={this.props.inputType}
                         value={inputValue}

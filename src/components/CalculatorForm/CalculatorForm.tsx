@@ -1,7 +1,7 @@
 import React from "react";
 import CalculatorFormTextInput from "../CalculatorFormTextInput/CalculatorFormTextInput.tsx";
 import RyczaltRateInput from "../RyczaltRateInput/RyczaltRateInput.tsx";
-import taxCalculate, { Taxes } from "../../helpers/taxCalculate";
+import taxCalculate, { Taxes } from "../../helpers/TaxCalculate.ts";
 
 interface ICalculatorFormProps {
     isError: boolean;
@@ -13,6 +13,7 @@ interface ICalculatorFormState {
     revenue: number;
     costs: number;
     ryczaltRate: number;
+    [key: string]: unknown;
 }
 
 export default class CalculatorForm extends React.Component<ICalculatorFormProps, ICalculatorFormState> {
@@ -25,19 +26,13 @@ export default class CalculatorForm extends React.Component<ICalculatorFormProps
         };
     }
 
-    handleIncomeChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-        const { value } = event.target;
-        this.setState({ revenue: Number(value) });
-    };
+    handleInput = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>): void => {
+        const { name, value } = event.target;
 
-    handleCostsChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-        const { value } = event.target;
-        this.setState({ costs: Number(value) });
-    };
-
-    handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
-        this.setState({ ryczaltRate: Number(event.target.value) });
-    };
+        if (name) {
+            this.setState({ [name]: value });
+        }
+    }
 
     calcBestOption = (): void => {
         const { revenue, costs, ryczaltRate } = this.state;
@@ -58,21 +53,22 @@ export default class CalculatorForm extends React.Component<ICalculatorFormProps
             <form className="card__inputs" onSubmit={this.handleSubmit}>
                 <CalculatorFormTextInput
                     label={"Przychody"}
-                    inputName="income"
-                    inputType={"number"}
-                    handleChange={this.handleIncomeChange}
+                    inputName={"revenue"}
+                    inputType={"text"}
+                    handleChange={this.handleInput}
                     isIncome={true}
                 />
                 <CalculatorFormTextInput
                     label={"Koszty"}
-                    inputName="costs"
-                    inputType={"number"}
-                    handleChange={this.handleCostsChange}
+                    inputName={"costs"}
+                    inputType={"text"}
+                    handleChange={this.handleInput}
                     isIncome={false}
                 />
                 <RyczaltRateInput
                     label={"Procent ryczałtu"}
-                    handleChange={this.handleSelectChange}
+                    inputName={"ryczaltRate"}
+                    handleChange={this.handleInput}
                 />
                 <div className="card__result-button">
                     <button type="submit">Oblicz</button>

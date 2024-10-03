@@ -3,6 +3,7 @@ import {ryczaltRates} from "../../utils/ryczaltRates.ts";
 
 interface IRyczaltRateInputProps {
     label: string;
+    inputName: string;
     handleChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
@@ -17,6 +18,7 @@ export default class RyczaltRateInput extends Component<IRyczaltRateInputProps> 
                 <select
                     onChange={this.props.handleChange}
                     className='card__inputs-item'
+                    name={this.props.inputName}
                 >
                     {ryczaltRates.map((rate, index) => (
                         <option key={index} value={rate.value}>
