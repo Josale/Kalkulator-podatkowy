@@ -16,5 +16,5 @@ export const calculateRyczaltTax = (income: number, ryczaltRate: number): number
 		healthContribution = 12 * RyczaltHealthContributionRate.High;
 	}
 	
-	return ryczaltTax + healthContribution;
+	return Math.round(ryczaltTax + healthContribution);
 }

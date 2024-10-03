@@ -16,5 +16,5 @@ export const calculateScaleTax = (income: number, costs: number): number => {
 		scaleTax = (scaleIncome - 120000) * 0.32 + 120000 * 0.12 + (scaleIncome - 1000000) * 0.04;
 	}
 	
-	return scaleTax + scaleHealthContribution;
+	return Math.round(scaleTax + scaleHealthContribution);
 }

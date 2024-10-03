@@ -12,5 +12,5 @@ export const calculateFlatTax = (income: number, costs: number): number => {
 		flatTax += (flatIncome - 1000000) * 0.04;
 	}
 	
-	return flatTax + flatHealthContribution;
+	return Math.round(flatTax + flatHealthContribution);
 }
